@@ -33,9 +33,6 @@ public class DemoAttendance extends JFrame {
     public DemoAttendance() {
 
         connect();
-
-//        getInTime();
-//        getDate();
         //meta data
         setContentPane(panel1);
         setTitle("Demo ATD App");
@@ -87,18 +84,12 @@ public class DemoAttendance extends JFrame {
         btnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // variable to get the values
-//                System.out.println(txtEid.getText());
-//                System.out.println(employeeID);
-
                 if (txtEid.getText().isEmpty() || txtEid.getText() == "") {
                     JOptionPane.showMessageDialog(DemoAttendance.this, "Please Enter Employee ID...");
                     return;
                 }
-
                 try {
                     int employeeID = Integer.parseInt(txtEid.getText());
-
                     //throry - if this emp ID already exist and the date is same as todays date then just add the out time
                     //otherwise add a new record
                     PreparedStatement readpst = conn.prepareStatement("SELECT * FROM demo_table WHERE empID = ? AND date = ?");
@@ -137,14 +128,11 @@ public class DemoAttendance extends JFrame {
             }
         });
     }
-
-
     //data base connection
     //db - attendancedb table-demo_table
     public void connect() {
         //connect to DB
         conn = DBConn.getConnection();
-
     }
 
     public void showTable() {
@@ -164,7 +152,7 @@ public class DemoAttendance extends JFrame {
             }
 
             dtm.setColumnIdentifiers(colNames);
-            String id,empID,name,date,in,out;
+            String id, empID, name, date, in, out;
 
             while (rs.next()) {
                 id = rs.getString(1);
@@ -180,17 +168,11 @@ public class DemoAttendance extends JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(DemoAttendance.this, "An error occurred while fetching data from the database: " + e.getMessage());
         }
-//        finally {
-//            //close connection
-//            try {
-//                conn.close();
-//            } catch (SQLException e) {
-//                Logger.getLogger(DemoAttendance.class.getName()).log(Level.SEVERE, null, e);
-//            }
-//        }
+
     }
 
     public void insertData(int employeeID) throws SQLException {
+
         PreparedStatement pst = conn.prepareStatement("INSERT INTO demo_table(empID,name,date,timeIN,timeOut) VALUES (?,?,?,?,?)");
 
         //conditions select name based on emp ID
@@ -267,11 +249,6 @@ public class DemoAttendance extends JFrame {
 //        11:18:26.838822600
         return tempTime;
     }
-
-//    public java.sql.Date getDate() {
-//        return LocalDate.now();
-//    }
-
     public java.sql.Date getDate() {
         LocalDate localDate = LocalDate.now();
         java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
