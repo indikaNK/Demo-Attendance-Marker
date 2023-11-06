@@ -1,0 +1,12 @@
+SQL
+
+CREATE TABLE `attendancedb`.`demo_table` (
+  `ID` INT NOT NULL AUTO_INCREMENT,
+  `empID` INT NOT NULL,
+  `date` DATE NOT NULL,
+  `timeIN` VARCHAR(45) NULL,
+  `timeOut` VARCHAR(45) NULL,
+  PRIMARY KEY (`ID`));
+
+ALTER TABLE `attendancedb`.`demo_table`
+ADD COLUMN `name` VARCHAR(45) NULL AFTER `empID`;
